@@ -1,0 +1,13 @@
+{
+    "razius/puppet": {
+        "path": "/home/puppet",
+        "key": "MyVerySecretKey",
+        "action": [["git", "pull", "origin", "master"], ],
+    },
+    "d3non/somerandomexample/branch:live": {
+        "path": "/home/exampleapp",
+        "key": "MyVerySecretKey",
+        "action": [["git", "pull", "origin", "live"],
+            ["echo", "execute", "some", "commands", "..."] ]
+    }
+}
