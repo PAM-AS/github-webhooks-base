@@ -16,6 +16,13 @@ from hashlib import sha1
 from flask import Flask, request, abort
 app = Flask(__name__)
 
+def getActualClientIP( request ):
+    if request.headers.get( "X-Ssl-Cipher" ) and request.headers.getlist( "X-Forwarded-For" ):
+        return request.headers.getlist( "X-Forwarded-For" )[0]
+    elif request.headers.getlist("X-Varnish-ClientIP"):
+        return request.headers.getlist("X-Varnish-ClientIP")[0]
+
+    return request.remote_addr
 
 @app.route("/", methods=['GET', 'POST'])
 def hello():
@@ -23,7 +30,7 @@ def hello():
     return 'OK'
   elif request.method == 'POST':
     # Store the IP address of the requester
-    request_ip = ipaddress.ip_address(u'{0}'.format(request.remote_addr))
+    request_ip = ipaddress.ip_address(u'{0}'.format(getActualClientIP(request))
 
     # Get the hook address blocks from the github API.
     hook_blocks = requests.get('https://api.github.com/meta').json()[
