@@ -48,7 +48,10 @@ def hello():
     if request.headers.get('X-GitHub-Event') != "push":
       return json.dumps({'msg': "wrong event type"})
 
-    repos = json.loads(io.open(REPOS_JSON_PATH, 'r').read())
+    if not os.environ.get('REPOS_JSON_PATH'):
+      return json.dumps({'msg': "Server missing REPOS_JSON_PATH"})
+
+    repos = json.loads(io.open(os.environ['REPOS_JSON_PATH'], 'r').read())
 
     payload = json.loads(request.data)
     repo_meta = {
