@@ -55,7 +55,7 @@ def hello():
 
       repos = json.loads(io.open(os.environ['REPOS_JSON_PATH'], 'r').read())
 
-      payload = json.loads(request.data.decode('utf8'))
+      payload = json.loads(request.data)
       repo_meta = {
           'name': payload['repository']['name'],
           'owner': payload['repository']['owner']['name'],
@@ -78,7 +78,7 @@ def hello():
         if key:
           signature = request.headers.get('X-Hub-Signature').split(
               '=')[1]
-          if type(key) == str:
+          if type(key) == unicode:
             key = key.encode()
           mac = hmac.new(key, msg=request.data, digestmod=sha1)
           if not hmac.compare_digest(mac.hexdigest(), signature):
