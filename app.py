@@ -78,8 +78,8 @@ def hello():
         if key:
           signature = request.headers.get('X-Hub-Signature').split(
               '=')[1]
-          if type(key) == unicode:
-            key = key.encode()
+          # if type(key) == unicode:
+          #   key = key.encode()
           mac = hmac.new(key, msg=request.data, digestmod=sha1)
           if not compare_digest(mac.hexdigest(), signature):
             abort(403)
