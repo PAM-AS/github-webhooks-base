@@ -81,7 +81,7 @@ def hello():
           if type(key) == str:
             key = key.encode()
           mac = hmac.new(key, msg=request.data, digestmod=sha1)
-          if not compare_digest(mac.hexdigest(), signature):
+          if not hmac.compare_digest(mac.hexdigest(), signature):
             abort(403)
 
         if repo.get('action', None):
