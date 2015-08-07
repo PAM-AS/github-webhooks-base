@@ -30,7 +30,7 @@ def hello():
     return 'OK'
   elif request.method == 'POST':
     # Store the IP address of the requester
-    request_ip = ipaddress.ip_address(u'{0}'.format(getactualClientIP(request)))
+    request_ip = ipaddress.ip_address(u'{0}'.format(getActualClientIP(request)))
 
     # Get the hook address blocks from the github API.
     hook_blocks = requests.get('https://api.github.com/meta').json()[
