@@ -55,7 +55,7 @@ def hello():
 
       repos = json.loads(io.open(os.environ['REPOS_JSON_PATH'], 'r').read())
 
-      payload = json.loads(request.data)
+      payload = json.loads(request.data.decode('utf8'))
       repo_meta = {
           'name': payload['repository']['name'],
           'owner': payload['repository']['owner']['name'],
