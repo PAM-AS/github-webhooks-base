@@ -6,7 +6,7 @@ MAINTAINER Thomas Sunde Nielsen
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
 ENV LANG C.UTF-8
 
-RUN apt-get update && apt-get install -y python python-pip netcat openssh-client
+RUN apt-get update && apt-get install -y python python-pip netcat openssh-client git
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
