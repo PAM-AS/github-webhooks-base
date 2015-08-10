@@ -88,7 +88,10 @@ def hello():
         if repo.get('action', None):
           for action in repo['action']:
             subp = subprocess.Popen(action, cwd=repo['path'])
-            subp.wait()
+            result = subp.wait()
+            if result != 0:
+              return json.dumps({'msg': "Command %s failed with result %s" % (action, result)})
+
       return 'OK'
   except Exception as e:
     return json.dumps({
