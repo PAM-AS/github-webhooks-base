@@ -91,6 +91,10 @@ def hello():
             result = subp.wait()
             if result != 0:
               return json.dumps({'msg': "Command %s failed with result %s" % (action, result)})
+        else:
+          return json.dumps({'msg':"Warning: No actions were run."})
+      else:
+        return json.dumps({'msg':"Warning: No path or repo config was found."})
 
       return 'OK'
   except Exception as e:
